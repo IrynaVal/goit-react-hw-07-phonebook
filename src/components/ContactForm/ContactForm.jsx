@@ -1,30 +1,35 @@
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addContact } from 'redux/operations';
-// import { selectContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  // const contacts = useSelector(selectContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleFormSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
 
-    console.log(form.elements.name.value);
-    console.log(form.elements.number.value);
+    // console.log(form.elements.name.value);
+    // console.log(form.elements.number.value);
 
-    // const repeatName = contacts.items.find(
-    //   contact => contact.name === form.elements.name.value
-    // );
+    const repeatName = contacts.find(
+      contact => contact.name === form.elements.name.value
+    );
 
-    // if (repeatName) {
-    //   return alert(`${form.elements.name.value} is already in contacts`);
-    // } else {
-    dispatch(addContact(form.elements.name.value, form.elements.number.value));
-    form.reset();
-    // }
+    if (repeatName) {
+      return alert(`${form.elements.name.value} is already in contacts`);
+    } else {
+      dispatch(
+        addContact({
+          name: form.elements.name.value,
+          phone: form.elements.number.value,
+        })
+      );
+      form.reset();
+    }
   };
 
   return (
