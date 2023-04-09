@@ -12,9 +12,6 @@ export const ContactForm = () => {
     evt.preventDefault();
     const form = evt.target;
 
-    // console.log(form.elements.name.value);
-    // console.log(form.elements.number.value);
-
     const repeatName = contacts.find(
       contact => contact.name === form.elements.name.value
     );
